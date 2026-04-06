@@ -1,0 +1,7 @@
+{
+  "name": "MediSpeak: AI Health Report Explainer",
+  "description": "Simplifies complex medical reports into easy-to-understand language with AI-driven insights and precautions.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
