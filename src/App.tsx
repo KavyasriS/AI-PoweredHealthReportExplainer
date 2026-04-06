@@ -26,6 +26,7 @@ import { analyzeMedicalReport } from './services/geminiService';
 import { cn } from './lib/utils';
 
 export default function App() {
+  console.log("MediSpeak App Mounting...");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -110,7 +111,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-slate-50">
+      {/* Debug Fallback */}
+      <div className="hidden">App is rendering</div>
       {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">

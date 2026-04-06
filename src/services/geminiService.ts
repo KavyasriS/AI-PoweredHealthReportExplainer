@@ -1,20 +1,28 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-const apiKey = process.env.GEMINI_API_KEY;
-const ai = new GoogleGenAI({ apiKey: apiKey! });
-
-export interface ReportAnalysis {
-  summary: string;
-  abnormalities: string[];
-  simplifiedTerms: { term: string; explanation: string }[];
-  precautions: string[];
-  nextSteps: string[];
-}
+const getApiKey = () => {
+  // Try import.meta.env first (Vite standard)
+  const key = import.meta.env.VITE_GEMINI_API_KEY;
+  if (key) return key;
+  
+  // Fallback to define-replaced process.env
+  try {
+    return process.env.GEMINI_API_KEY || "";
+  } catch (e) {
+    return "";
+  }
+};
 
 export async function analyzeMedicalReport(
   fileData: string,
   mimeType: string
 ): Promise<string> {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    throw new Error("Gemini API Key is missing. Please set GEMINI_API_KEY in your environment.");
+  }
+  
+  const ai = new GoogleGenAI({ apiKey });
   const model = "gemini-3-flash-preview";
   
   const systemInstruction = `
